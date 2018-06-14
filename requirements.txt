@@ -26,7 +26,7 @@ Markdown==2.6.11
 MarkupSafe==1.0
 nexmo==2.0.0
 numpy==1.14.4
-opencv-python==3.4.1.15
+opencv-python==3.2.0.8
 protobuf==3.5.2.post1
 pycparser==2.18
 PyJWT==1.6.4
