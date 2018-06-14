@@ -17,13 +17,13 @@ manager = Manager(app)
 
 
 def load():
-    json_file = open("app\\static\\railway_model.json", "r")
+    json_file = open("app\\app\\static\\railway_model.json", "r")
     loaded_model_json = json_file.read()
     json_file.close()
     # Создаем модель на основе загруженных данных
     model = model_from_json(loaded_model_json)
     # Загружаем веса в модель
-    model.load_weights("app\\static\\railway_model.h5")
+    model.load_weights("app]\\app\\static\\railway_model.h5")
     model.compile(loss="categorical_crossentropy", optimizer="SGD", metrics=["accuracy"])
     return model
 

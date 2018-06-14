@@ -69,7 +69,7 @@ def change():
 @app.route('/send')
 def send():
     res = start()
-    cv2.imwrite('app//predict.jpg', crop_img)
+    cv2.imwrite('app//app//predict.jpg', crop_img)
     msg = Message("Оповещение",
                   sender="railways.monitoring@gmail.com",
                   recipients=[mn.adress])
