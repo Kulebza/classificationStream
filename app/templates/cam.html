@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% block app_content  %}
+    <script type="text/javascript" >
+$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+   //stop sending requests
+   iDontWantItAnymore = false;
+   //sleep period (30s)
+$sleepPeriod = 4000;
+
+function spend()
+{
+        $.get($SCRIPT_ROOT + '/start',
+        {
+            b: Math.random() * 10000
+        }).done(function (data) {
+            if(!iDontWantItAnymore){
+                document.getElementById("pu").textContent = data.result;
+                setTimeout(function(){spend();},$sleepPeriod);
+            }
+        }).fail(function (error) {
+                console.log(error);
+            });
+    return true;
+}
+function Start() {
+    iDontWantItAnymore = false;
+    $myVar = setInterval(Send, 900000);
+    document.getElementById("answ").textContent = "Оповещения отправляются каждые " + 900000 / 60000 + " мин";
+    document.getElementById("pu").textContent = "Подождите";
+        setTimeout(spend,5000);
+}
+function Stop() {
+    iDontWantItAnymore = true;
+    clearInterval($myVar)
+    document.getElementById("pu").textContent = "";
+}
+
+function Send() {
+    setTimeout(function () {
+        document.getElementById("answ").textContent = "", 6000;
+    });
+    $.get($SCRIPT_ROOT + '/send', function (data) {
+       document.getElementById("answ").textContent = data.result;
+    });
+
+}
+</script>
+
+    <div class="page-header">
+        <h1>г. Подольск, улица Ленинцев</h1>
+      </div>
+<div class="iv-embed" style="margin:0 auto;padding:0;border:0;width:891px;"><div class="iv-v" style="display:block;margin:0;padding:1px;border:0;background:#000;"><iframe class="iv-i" style="display:block;margin:0;padding:0;border:0;" src="https://open.ivideon.com/embed/v2/?server=200-4721c6ffcb78953b724c195f01db1168&amp;camera=327680&amp;width=&amp;height=&amp;lang=ru" width="889" height="500" frameborder="0" allowfullscreen></iframe></div><div class="iv-b" style="display:block;margin:0;padding:0;border:0;"><div style="float:right;text-align:right;padding:0 0 10px;line-height:10px;"><a class="iv-a" style="font:10px Verdana,sans-serif;color:inherit;opacity:.6;" href="https://www.ivideon.com/" target="_blank">Powered by Ivideon</a></div><div style="clear:both;height:0;overflow:hidden;">&nbsp;</div><script src="https://open.ivideon.com/embed/v2/embedded.js"></script></div></div>
+     <p>
+    <button type="button" class="btn btn-lg btn-success" id="start" onclick = "Start()">Начать мониторинг</button>
+       <button type="button" id=stop onclick="Stop()" class="btn btn-lg btn-default">Остановить</button>
+     <button type="button" class="btn btn-lg btn-success" id=send onclick="Send()" >Отправить в диспетчерскую</button>
+     <a id="answ"></a>
+    </p>
+    <div class="alert alert-success" role="alert">
+        <strong id=pu></strong>
+      </div>
+{% endblock %}

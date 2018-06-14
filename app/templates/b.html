@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% block app_content  %}
+<script type="text/javascript" >
+$SCRIPT_ROOT = {{ request.script_root|tojson|safe }} ;
+function Change() {
+    $.get($SCRIPT_ROOT + '/mail',
+        {
+            a: document.getElementById("adr").value
+        }, function (data) {
+
+            document.getElementById("answ").textContent = data.result;
+        });
+}
+</script>
+<p>
+    <a>Введите новый адрес элетронной почты для оповещений:</a>
+    <input id = "adr" type=text  name=a>
+    <button type="button" class="btn btn-lg btn-success" id="send" onclick="Change()" >Поменять</button>
+    <a id="answ"></a>
+</p>
+
+{% endblock %}

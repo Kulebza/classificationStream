@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+{% extends 'bootstrap/base.html' %}
+{% block title %} Monitoring of railways
+{% endblock %}
+
+{% block navbar %}
+    <img class="image-wrap" src="{{url_for('static', filename='weg.jpg')}}" alt="margin : auto"/>
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+      <a class="navbar-brand" href="/start">Вернуться на стартовую страницу</a>
+<a class="navbar-brand" href="/changeadress">Настройки оповещений</a>
+    </nav>
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for category, message in messages %}
+      <li class="{{ category }}">{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+   {% endwith %}
+
+
+        {% block app_content %}
+        {% endblock %}
+    </div>
+
+{% endblock %}

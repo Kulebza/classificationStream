@@ -1,12 +1,6 @@
 from app import app
 
-#app = Flask(__name__)
-
-
-#@app.route('/')
-#def hello_world():
-    #return 'Hello World!'
-
-
 if __name__ == '__main__':
-    app.run(debug=True)
+    #app.secret_key = 'super secret key'
+    #app.config['SESSION_TYPE'] = 'filesystem'
+    app.run(debug=True, treaded = True)
